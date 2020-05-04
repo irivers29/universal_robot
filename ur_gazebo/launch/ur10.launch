@@ -6,6 +6,10 @@
   <arg name="world_name" default="worlds/empty.world" doc="Gazebo world name"/>
   <arg name="max_torque_scale_factor" default="1.0" doc="Scale factor multplied by maximum joint torque value"/>
   <arg name="max_velocity_scale_factor" default="1.0" doc="Scale factor multplied by maximum joint velocity value"/>
+  <arg name="x" default="0.0" doc="x coordinate of the robot base relative to the world's origin"/>
+  <arg name="y" default="0.0" doc="y coordinate of the robot base relative to the world's origin"/>
+  <arg name="z" default="0.1" doc="z coordinate of the robot base relative to the world's origin"/>
+
 
   <!-- startup simulated world -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -22,7 +26,7 @@
   </include>
 
   <!-- push robot_description to factory and spawn robot in gazebo -->
-  <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model robot -z 0.1" respawn="false" output="screen" />
+  <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model robot -x $(arg x) -y $(arg y) -z $(arg z)" respawn="false" output="screen" />
 
   <include file="$(find ur_gazebo)/launch/controller_utils.launch"/>
 
