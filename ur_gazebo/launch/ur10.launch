@@ -9,12 +9,21 @@
   <arg name="x" default="0.0" doc="x coordinate of the robot base relative to the world's origin"/>
   <arg name="y" default="0.0" doc="y coordinate of the robot base relative to the world's origin"/>
   <arg name="z" default="0.1" doc="z coordinate of the robot base relative to the world's origin"/>
+  <arg name="shoulder_pan_joint" default="0.0" />
+  <arg name="shoulder_lift_joint" default="0.0" />
+  <arg name="elbow_joint" default="0.0" />
+  <arg name="wrist_1_joint" default="0.0" />
+  <arg name="wrist_2_joint" default="0.0" />
+  <arg name="wrist_3_joint" default="0.0" />
+
+  <arg name="paused_tag" value="-unpause" unless="$(arg paused)"/>
+  <arg name="paused_tag" value="" if="$(arg paused)"/>
 
 
   <!-- startup simulated world -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(arg world_name)"/>
-    <arg name="paused" value="$(arg paused)"/>
+    <arg name="paused" value="true"/>
     <arg name="gui" value="$(arg gui)"/>
   </include>
 
@@ -26,7 +35,15 @@
   </include>
 
   <!-- push robot_description to factory and spawn robot in gazebo -->
-  <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model robot -x $(arg x) -y $(arg y) -z $(arg z)" respawn="false" output="screen" />
+  <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model robot
+    -x $(arg x) -y $(arg y) -z $(arg z)
+    -J shoulder_pan_joint $(arg shoulder_pan_joint)
+    -J shoulder_lift_joint $(arg shoulder_lift_joint)
+    -J elbow_joint $(arg elbow_joint)
+    -J wrist_1_joint $(arg wrist_1_joint)
+    -J wrist_2_joint $(arg wrist_2_joint)
+    -J wrist_3_joint $(arg wrist_3_joint)
+    $(arg paused_tag)" respawn="false" output="screen"/>
 
   <include file="$(find ur_gazebo)/launch/controller_utils.launch"/>
 
