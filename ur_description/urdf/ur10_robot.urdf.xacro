@@ -5,6 +5,13 @@
   <xacro:arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface"/>
   <xacro:arg name="max_torque_scale_factor" default="1.0"/>
   <xacro:arg name="max_velocity_scale_factor" default="1.0"/>
+  <xacro:arg name="x" default="0.0"/>
+  <xacro:arg name="y" default="0.0"/>
+  <xacro:arg name="z" default="0.0"/>
+  <xacro:arg name="roll" default="0.0"/>
+  <xacro:arg name="pitch" default="0.0"/>
+  <xacro:arg name="yaw" default="0.0"/>
+
 
 
   <!-- common stuff -->
@@ -25,7 +32,7 @@
   <joint name="world_joint" type="fixed">
     <parent link="world" />
     <child link = "base_link" />
-    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+    <origin xyz="$(arg x) $(arg y) $(arg z)" rpy="$(arg roll) $(arg pitch) $(arg yaw)" />
   </joint>
 
 </robot>

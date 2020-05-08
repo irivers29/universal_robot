@@ -6,9 +6,12 @@
   <arg name="world_name" default="worlds/empty.world" doc="Gazebo world name"/>
   <arg name="max_torque_scale_factor" default="1.0" doc="Scale factor multplied by maximum joint torque value"/>
   <arg name="max_velocity_scale_factor" default="1.0" doc="Scale factor multplied by maximum joint velocity value"/>
-  <arg name="x" default="0.0" doc="x coordinate of the robot base relative to the world's origin"/>
-  <arg name="y" default="0.0" doc="y coordinate of the robot base relative to the world's origin"/>
-  <arg name="z" default="0.1" doc="z coordinate of the robot base relative to the world's origin"/>
+  <arg name="x" default="0.0" doc="base_link coordinate with respect to the world frame"/>
+  <arg name="y" default="0.0" doc="base_link coordinate with respect to the world frame"/>
+  <arg name="z" default="0.1" doc="base_link coordinate with respect to the world frame"/>
+  <arg name="roll" default="0.0" doc="base_link coordinate with respect to the world frame"/>
+  <arg name="pitch" default="0.0" doc="base_link coordinate with respect to the world frame"/>
+  <arg name="yaw" default="0.0" doc="base_link coordinate with respect to the world frame"/>
   <arg name="shoulder_pan_joint" default="0.0" />
   <arg name="shoulder_lift_joint" default="0.0" />
   <arg name="elbow_joint" default="0.0" />
@@ -32,11 +35,16 @@
     <arg name="limited" value="$(arg limited)"/>
     <arg name="max_torque_scale_factor" value="$(arg max_torque_scale_factor)"/>
     <arg name="max_velocity_scale_factor" value="$(arg max_velocity_scale_factor)"/>
+    <arg name="x" value="$(arg x)"/>
+    <arg name="y" value="$(arg y)"/>
+    <arg name="z" value="$(arg z)"/>
+    <arg name="roll" value="$(arg roll)"/>
+    <arg name="pitch" value="$(arg pitch)"/>
+    <arg name="yaw" value="$(arg yaw)"/>
   </include>
 
   <!-- push robot_description to factory and spawn robot in gazebo -->
   <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model robot
-    -x $(arg x) -y $(arg y) -z $(arg z)
     -J shoulder_pan_joint $(arg shoulder_pan_joint)
     -J shoulder_lift_joint $(arg shoulder_lift_joint)
     -J elbow_joint $(arg elbow_joint)
